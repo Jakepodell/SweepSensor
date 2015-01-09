@@ -49,16 +49,17 @@ void loop()
         
     distance = Dist.getDistanceInch();
     //Serial.print("position: ");
-    Serial.print(pos);
+    Serial.println(pos);
     //Serial.print("distance: ");
-    Serial.print(" | ");
+    //Serial.print(" | ");
     Serial.println(distance);
     pos+=deltaP;
-    if(pos<=45 || pos>=135){
+    if(pos<45 || pos>135){
       deltaP*=-1;
+      pos+=deltaP;
     }
-    myservo.write(pos);    // tell servo to go to position in variable 'pos' 
-    delay(1000);
+    //myservo.write(pos);    // tell servo to go to position in variable 'pos' 
+    delay(250);
     
     
     

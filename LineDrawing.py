@@ -41,6 +41,9 @@ highest=0
 obstacles=[]
 sweepCount=0
 angles =0
+endCounter =0
+inish = False
+counter=0;
 
 
 # -------- Main Program Loop -----------
@@ -64,10 +67,11 @@ while not done:
         dist = float(distString)
     if angleString.isdigit():
         angle = float(angleString)
-    '''print 'angle'
+    print 'angle'
     print angle
     print 'dist'
-    print dist'''
+    print dist
+    obstacles.append(Obstacle.Obstacle(angle, dist))
         
     
     # --- Main event loop -------------------------------
@@ -83,37 +87,32 @@ while not done:
     radius = dist*3
    # radius =75
    # print dist
-    angle+=deltaA
-    if angle>=135 or angle<=45:
+   # angle+=deltaA
+    if inish == False:
+        inish=True
+        print "now its true"
+    elif angle>=135 or angle<=45:
         deltaA*=-1
         start=0
-        if not done:
+        endCounter+=1
+        print endCounter
+        if not done and endCounter==2:
             window.fill((255,255,255))
-        counter =0
-        highIndex =0
-        for obs in obstacles:
-            pygame.draw.circle(window, (0,0,255), (int(220+obs.angle), int(230-obs.distance)), 3)
-            if obs.distance > highest:
-                highest = obs.distance
-                highIndex = counter
-            counter+=1
-        #print "Recommended Angle :"
-        #print obstacles[highIndex].angle
-        if not sweepCount%2==0:
-            angles+=obstacles[highIndex].angle
-#            print obstacles[highIndex].angle
-        else:
-    #        print obstacles[highIndex].angle
-            angles+=obstacles[highIndex].angle
-            angles/=2
+            endCounter=0
+            counter =0
+            highIndex =0
+        if endCounter==1:
+            for obs in obstacles:
+            #  pygame.draw.circle(window, (0,0,255), (int(220+obs.angle), int(230-obs.distance)), 3)
+                if obs.distance > highest:
+                    highest = obs.distance
+                    highIndex = counter
+                    counter+=1
             print "Recommended Angle :"
-            print angles
-            angles=0
-        del obstacles[:]
-        sweepCount+=1
-        highest=0
+            print obstacles[highIndex].angle
+            del obstacles[:]
+            highest=0
         
-
     if start == 0:
         start = dist
  
@@ -124,14 +123,13 @@ while not done:
     
     #if dist<12:
     x = angle
-    y = dist/10
+    y = dist
     '''if y>start/10:
         pygame.draw.circle(window, (0,255,0), (int(220+x), int(230-y)), (3))
     elif y<start/10:
         pygame.draw.circle(window, (255,0,0), (int(220+x), int(230-y)), (3))
-    else:
-        pygame.draw.circle(window, (0,0,255), (int(220+x), int(230-y)), (3))'''
-    obstacles.append(Obstacle.Obstacle(angle, dist))
+    else:'''
+    pygame.draw.circle(window, (0,0,255), (int(220+x), int(230-y)), (3))
    
   
     # --- Go ahead and update the screen with what we've drawn.
