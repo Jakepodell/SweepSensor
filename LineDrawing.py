@@ -67,10 +67,11 @@ while not done:
         dist = float(distString)
     if angleString.isdigit():
         angle = float(angleString)
-    print 'angle'
-    print angle
-    print 'dist'
-    print dist
+    if dist > 20:
+        print 'angle'
+        print angle
+        print 'dist'
+        print dist
     obstacles.append(Obstacle.Obstacle(angle, dist))
         
     
@@ -90,8 +91,8 @@ while not done:
    # angle+=deltaA
     if inish == False:
         inish=True
-        print "now its true"
-    elif angle>=135 or angle<=45:
+      #  print "now its true"
+    elif angle>=180 or angle<=0:
         deltaA*=-1
         start=0
         endCounter+=1
@@ -99,8 +100,6 @@ while not done:
         if not done and endCounter==2:
             window.fill((255,255,255))
             endCounter=0
-            counter =0
-            highIndex =0
         if endCounter==1:
             for obs in obstacles:
             #  pygame.draw.circle(window, (0,0,255), (int(220+obs.angle), int(230-obs.distance)), 3)
@@ -108,10 +107,12 @@ while not done:
                     highest = obs.distance
                     highIndex = counter
                     counter+=1
-            print "Recommended Angle :"
-            print obstacles[highIndex].angle
+         #   print "Recommended Angle :"
+         #   print obstacles[highIndex].angle
             del obstacles[:]
             highest=0
+            counter =0
+            highIndex =0
         
     if start == 0:
         start = dist

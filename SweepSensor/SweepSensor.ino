@@ -13,8 +13,8 @@ int distance;
 Servo myservo;  // create servo object to control a servo 
                 // a maximum of eight servo objects can be created 
  
-int pos = 45;    // variable to store the servo position 
-int deltaP=10;
+int pos = 0;    // variable to store the servo position 
+int deltaP=45;
 int pos2, oldpos;
  
 void setup() 
@@ -46,20 +46,20 @@ void loop()
       Serial.println(distance);
       }
     }*/
-        
+    myservo.write(pos);    // tell servo to go to position in variable 'pos' 
+    delay(500);
+    
     distance = Dist.getDistanceInch();
     //Serial.print("position: ");
-    Serial.println(pos);
+    Serial.println(distance);
     //Serial.print("distance: ");
     //Serial.print(" | ");
-    Serial.println(distance);
+    Serial.println(pos);
     pos+=deltaP;
-    if(pos<45 || pos>135){
+    if(pos<0 || pos>180){
       deltaP*=-1;
-      pos+=deltaP;
     }
-    //myservo.write(pos);    // tell servo to go to position in variable 'pos' 
-    delay(250);
+
     
     
     
